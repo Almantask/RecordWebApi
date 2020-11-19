@@ -8,7 +8,9 @@ namespace RecordWebApi.Db
 {
     public class WeatherContext : DbContext
     {
-        public DbSet<WeatherForecast> Weathers { get; set; }
+        public DbSet<WeatherForecast1> Weathers1 { get; set; }
+        public DbSet<WeatherForecast2> Weathers2 { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

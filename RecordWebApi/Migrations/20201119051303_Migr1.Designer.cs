@@ -2,39 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecordWebApi.Db;
 
 namespace RecordWebApi.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    partial class WeatherContextModelSnapshot : ModelSnapshot
+    [Migration("20201119051303_Migr1")]
+    partial class Migr1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.0");
-
-            modelBuilder.Entity("RecordWebApi.Contact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Contacts");
-                });
 
             modelBuilder.Entity("RecordWebApi.WeatherForecast1", b =>
                 {
@@ -58,9 +40,9 @@ namespace RecordWebApi.Migrations
 
             modelBuilder.Entity("RecordWebApi.WeatherForecast2", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
@@ -71,7 +53,7 @@ namespace RecordWebApi.Migrations
                     b.Property<int>("TemperatureC")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Weathers2");
                 });
