@@ -27,8 +27,10 @@ namespace RecordWebApi.Controllers
             _logger = logger;
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<NewContact, Contact>();
-                cfg.CreateMap<Contact, NewContact>();
+                cfg.CreateMap<NewContact, Contact>()
+                    .ConstructUsing((contact) => MapFrom(contact));
+                cfg.CreateMap<Contact, NewContact>()
+                    .ConstructUsing((contact) => MapFrom(contact));
             });
             _mapper = config.CreateMapper();
         }
@@ -64,7 +66,7 @@ namespace RecordWebApi.Controllers
             db.Contacts.Add(contact);
             await db.SaveChangesAsync();
 
-            return CreatedAtAction("Post", new { id = contact.Id }, _mapper.Map<Contact>(contact));
+            return CreatedAtAction(nameof(PostContact), new { id = contact.Id }, _mapper.Map<Contact>(contact));
         }
 
         [HttpGet("contacts")]
@@ -93,5 +95,15 @@ namespace RecordWebApi.Controllers
         //    using var db = new WeatherContext();
         //    return db.Weathers2.ToArray();
         //}
+
+        private Contact MapFrom(NewContact contact)
+        {
+            return new Contact(0, contact.FirstName, contact.LastName, contact.Age.Value);
+        }
+
+        private NewContact MapFrom(Contact contact)
+        {
+            return new NewContact(contact.FirstName, contact.LastName, contact.Age);
+        }
     }
 }
